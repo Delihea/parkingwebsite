@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Vehicle Registration</h2>
+
+        <form id="vehicleForm">
+            <div class="input-group">
+                <label for="customer-name">Customer name:</label>
+                <input type="text" id="customer-name" required />
+            </div>
+           
+            <div class="input-group">
+                <label for="vehicle-plate-customer">Vehicle Plate Number:</label>
+                <input type="text" id="vehicle-plate-customer" required />
+            </div>
+    
+            <div class="input-group">
+                <label for="vehicleType">Vehicle Type:</label>
+                <select type="vehicleType" id="vehicleType" name="vehicleType" required>
+                    <option value="">Select Vehicle type</option>
+                    <option value="Car">Car</option>
+                    <option value="Motorcycle">Motorcycle</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="userType">User Type:</label>
+                <select type="userType" id="userType" name="userType" required>
+                    <option value="">Select User type</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="PWD">PWD</option> 
+                    <option value="VIP">VIP</option> 
+                </select>
+            </div>
+            
+           
+             <button type="submit">Add Customer</button> 
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("vehicleForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const customerName = document.getElementById("customer-name").value;
+            const vehicleType = document.getElementById("vehicleType").value;
+            const vehiclePlate = document.getElementById("vehicle-plate-customer").value;
+            const userType = document.getElementById("userType").value;
+
+            if (!customerName || !vehicleType || !vehiclePlate || !userType) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            localStorage.setItem("userType", userType);
+
+            const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+
+            const newCustomer = {
+                ownerName: customerName,
+                vehicleType: vehicleType,
+                vehiclePlate: vehiclePlate,
+                userType: userType, 
+                ticketNumber: `TICKET-${reservations.length + 1}`,
+                timeIn: new Date().toLocaleString(),
+                timeOut: null,
+                parkingSlot: null,
+            };
+
+            reservations.push(newCustomer);
+
+            localStorage.setItem("reservations", JSON.stringify(reservations));
+
+            alert("Customer added successfully!");
+            document.getElementById("vehicleForm").reset();
+
+            window.location.href = "parking-slot.html";
+            
+        });
+    </script>
+</body>
+</html>

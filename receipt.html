@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #checkoutButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+            display: inline-block; 
+             width: auto; 
+             text-align: center; 
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #checkoutButton:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        #checkoutButton:active {
+            transform: scale(0.98);
+        }
+
+        body {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <button id="checkoutButton" onclick="checkout()"> Check Out</button>
+
+    <div class="receipt-container">
+        <h2>Parking Receipt</h2>
+        <div id="receiptInfo">
+           
+        </div>
+        <button onclick="window.print()">Print Receipt</button>
+    </div>
+
+    <script>
+
+         const receiptData = JSON.parse(localStorage.getItem("receipt"));
+
+            if (receiptData) {
+                const isFreeParking = receiptData.userType === "PWD" || receiptData.userType === "VIP";
+                const parkingFeeText = isFreeParking ? "Free Parking" : `₱${receiptData.fee}`;
+                
+                document.getElementById("receiptInfo").innerHTML = `
+                    <p><strong>Customer Name:</strong> ${receiptData.ownerName}</p>
+                    <p><strong>Vehicle Type:</strong> ${receiptData.vehicleType}</p>
+                    <p><strong>License Plate:</strong> ${receiptData.vehiclePlate}</p>
+                    <p><strong>Parking Slot:</strong> ${receiptData.parkingSlot}</p>
+                    <p><strong>Time In:</strong> ${receiptData.timeIn}</p>
+                    <p><strong>Time Out:</strong> ${receiptData.timeOut}</p>
+                    <p><strong>Parking Fee:</strong> ${parkingFeeText}</p>
+                `;
+            } else {
+                document.getElementById("receiptInfo").innerHTML = "<p>No receipt data found. Please return to the dashboard.</p>";
+            }
+
+            function checkout() {
+                localStorage.removeItem("receipt");
+                alert("You have been Checked out.");
+                window.location.href = "parking-slot.html"; 
+            }
+    </script>
+</body>
+</html>

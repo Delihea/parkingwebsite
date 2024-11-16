@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking System Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loginSection" class="login-container">
+        <img src="bcplogo.png" alt="BCP Logo" width="190" height="120">
+        <h1>Bestlink College Of The Philippines</h1>
+        <h2>Parking System Login</h2>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="password" required>
+            </div>
+
+            <button type="submit">Login</button>
+
+            <div class="link">
+                <a href="#" id="forgetPasswordLink">Forget Password</a>
+            </div>
+            <div class="link">
+                <a href="#" id="createAccountLink">Create Account</a>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        /* Apply the design to both sections */
+        #registerSection, #forgotPasswordSection {
+            max-width: 420px;
+            margin: 100px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+    
+    <div id="registerSection" class="hidden">
+        <h3>Create Account</h3>
+        <form id="registerForm">
+            <input type="text" id="newUsername" placeholder="Username" required>
+            <input type="password" id="newPassword" placeholder="Password" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <button type="submit">Create Account</button>
+            <div class="link">
+                <a href="#" id="backToLoginLink">Back to Login</a>
+            </div>
+        </form>
+    </div>
+    <div id="forgotPasswordSection" class="hidden">
+        <h3>Forget Password</h3>
+        <form id="forgotPasswordForm">
+            <input type="text" id="forgotUsername" placeholder="Username" required>
+            <button type="submit">Reset Password</button>
+            <div class="link">
+                <a href="#" id="backToLoginFromForgot">Back to Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="java_2.js"></script>
+</body>
+</html> 
